@@ -1,0 +1,150 @@
+@keyframes ambient-fall {
+  0% {
+    transform: translateY(-8vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(48vh) translateX(var(--sway, 20px)) rotate(180deg);
+    opacity: 0.8;
+  }
+  92% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(105vh) translateX(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes envelope-away {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  20% {
+    transform: translateY(14px) rotate(0.8deg) scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh) rotate(-3deg) scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes seal-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 4px 20px var(--shadow-color, rgba(33, 85, 137, 0.5)), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 8px 32px var(--shadow-color, rgba(33, 85, 137, 0.65)), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  }
+}
+
+@keyframes seal-break {
+  0% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    opacity: 1;
+    filter: brightness(1);
+  }
+  30% {
+    transform: translate(-50%, -50%) scale(1.25) rotate(6deg);
+    opacity: 0.9;
+    filter: brightness(1.3);
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.1) rotate(-4deg);
+    opacity: 0.5;
+    filter: brightness(1.5);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0) rotate(20deg);
+    opacity: 0;
+    filter: brightness(2);
+  }
+}
+
+/* Floral bloom animations when Open button is clicked */
+@keyframes flower-bloom-left {
+  0% {
+    transform: translate(-6%, 0) rotate(25deg) scale(1);
+    filter: brightness(1);
+  }
+  35% {
+    transform: translate(-14%, -10px) rotate(12deg) scale(1.32);
+    filter: brightness(1.25) drop-shadow(0 6px 18px rgba(33, 85, 137, 0.45));
+  }
+  100% {
+    transform: translate(-30%, -45px) rotate(4deg) scale(1.15);
+    opacity: 0.85;
+  }
+}
+
+@keyframes flower-bloom-right {
+  0% {
+    transform: translate(6%, 0) rotate(-25deg) scale(1);
+    filter: brightness(1);
+  }
+  35% {
+    transform: translate(14%, 10px) rotate(-12deg) scale(1.32);
+    filter: brightness(1.25) drop-shadow(0 6px 18px rgba(33, 85, 137, 0.45));
+  }
+  100% {
+    transform: translate(30%, 45px) rotate(-4deg) scale(1.15);
+    opacity: 0.85;
+  }
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  50%, 100% {
+    left: 100%;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-ambient-fall {
+  animation: ambient-fall 18s ease-in-out infinite;
+}
+
+.animate-seal-pulse {
+  animation: seal-pulse 2.2s ease-in-out infinite;
+}
+
+.animate-seal-break {
+  animation: seal-break 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-envelope-away {
+  animation: envelope-away 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-flower-left {
+  animation: flower-bloom-left 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-flower-right {
+  animation: flower-bloom-right 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-shine {
+  animation: shine 3s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 10s linear infinite;
+}
