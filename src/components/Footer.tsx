@@ -22,6 +22,15 @@ export const Footer: React.FC = () => {
           src="./images/decor/bottom-garland.webp"
         />
       </div>
+
+      {/* Copyright */}
+      <div className="py-4 text-[11px] text-[#2F3A45]/50 tracking-wider font-sans">
+        Crafted with 🤍 by{' '}
+        <span className="font-semibold text-[#215589] hover:underline cursor-pointer">
+          3mtechs
+        </span>{' '}
+        • All Rights Reserved © {invitationData.year}
+      </div>
     </footer>
   );
 };
