@@ -4,6 +4,7 @@ import { Redis } from '@upstash/redis';
 // Find whichever environment variables Vercel/Upstash injected
 function getRedisClient() {
   const url =
+    process.env.kv_KV_REST_API_URL ||
     process.env.KV_REST_API_URL ||
     process.env.UPSTASH_REDIS_REST_URL ||
     process.env.KV_URL ||
@@ -11,6 +12,7 @@ function getRedisClient() {
     process.env.STORAGE_URL;
 
   const token =
+    process.env.kv_KV_REST_API_TOKEN ||
     process.env.KV_REST_API_TOKEN ||
     process.env.UPSTASH_REDIS_REST_TOKEN ||
     process.env.KV_TOKEN ||
