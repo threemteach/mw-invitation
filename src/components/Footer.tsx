@@ -26,9 +26,14 @@ export const Footer: React.FC = () => {
       {/* Copyright */}
       <div className="py-4 text-[11px] text-[#2F3A45]/50 tracking-wider font-sans">
         Crafted with 🤍 by{' '}
-        <span className="font-semibold text-[#215589] hover:underline cursor-pointer">
+        <a
+          href="https://3mtechs.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-[#215589] hover:underline underline-offset-2 transition-colors duration-200"
+        >
           3mtechs
-        </span>{' '}
+        </a>{' '}
         • All Rights Reserved © {invitationData.year}
       </div>
     </footer>
