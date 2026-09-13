@@ -1,8 +1,35 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
+
+// Find whichever environment variables Vercel/Upstash injected
+function getRedisClient() {
+  const url =
+    process.env.KV_REST_API_URL ||
+    process.env.UPSTASH_REDIS_REST_URL ||
+    process.env.KV_URL ||
+    process.env.STORAGE_REST_API_URL ||
+    process.env.STORAGE_URL;
+
+  const token =
+    process.env.KV_REST_API_TOKEN ||
+    process.env.UPSTASH_REDIS_REST_TOKEN ||
+    process.env.KV_TOKEN ||
+    process.env.STORAGE_REST_API_TOKEN ||
+    process.env.STORAGE_TOKEN;
+
+  if (url && token) {
+    return new Redis({ url, token });
+  }
+
+  // If standard env vars are set, fromEnv() detects them automatically
+  try {
+    return Redis.fromEnv();
+  } catch {
+    return null;
+  }
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -16,11 +43,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
+  const redis = getRedisClient();
+
   // GET: Fetch all public wishes
   if (req.method === 'GET') {
+    if (!redis) {
+      return res.status(200).json([]);
+    }
     try {
-      const wishes = (await kv.get('mohamed_menna_wishes')) || [];
-      return res.status(200).json(wishes);
+      const wishes = (await redis.get('mohamed_menna_wishes')) || [];
+      return res.status(200).json(Array.isArray(wishes) ? wishes : []);
     } catch {
       return res.status(200).json([]);
     }
@@ -28,6 +60,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // POST: Add new wish
   if (req.method === 'POST') {
+    if (!redis) {
+      return res.status(500).json({
+        error: 'Database not connected. Please check Vercel environment variables.',
+      });
+    }
+
     try {
       const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
       const { name, message } = body;
@@ -49,18 +87,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       let existing: any[] = [];
       try {
-        existing = (await kv.get('mohamed_menna_wishes')) || [];
+        existing = (await redis.get('mohamed_menna_wishes')) || [];
         if (!Array.isArray(existing)) existing = [];
       } catch {
         existing = [];
       }
 
       const updated = [newWish, ...existing];
-      await kv.set('mohamed_menna_wishes', updated);
+      await redis.set('mohamed_menna_wishes', updated);
 
       return res.status(200).json(newWish);
-    } catch {
-      return res.status(500).json({ error: 'Failed to save wish' });
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message || 'Failed to save wish' });
     }
   }
 
