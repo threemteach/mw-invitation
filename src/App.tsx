@@ -15,13 +15,12 @@ function App() {
   const [musicStarted, setMusicStarted] = useState(false);
 
   const handleOpenInvitation = () => {
-    // Start audio playback right on user click
-    setMusicStarted(true);
-
-    // Allow the envelope fly-away animation to play before hiding intro
+    // Wait until the envelope fly-away animation finishes (~1100ms)
+    // before hiding the intro and starting the romantic background music
     setTimeout(() => {
       setIsIntroActive(false);
-    }, 850);
+      setMusicStarted(true);
+    }, 1100);
   };
 
   return (
