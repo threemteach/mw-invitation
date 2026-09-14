@@ -32,12 +32,13 @@ export const invitationData = {
   year: 2026,
   eventTime: "8:00 PM",
 
-  // Blessing / Welcome Message (Replacing family info)
+  // Welcome Message from the Couple
   blessing: {
-    quranicVerse: "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً",
     title: "WE ARE GETTING MARRIED",
+    subtitle: "A Warm Welcome",
     message: "Together with our beloved families, we invite you to share in our celebration of love, laughter, and happily ever after.",
-    arabicMessage: "يسعدنا ويشرفنا دعوتكم لمشاركتنا فرحتنا و ليلة من أجمل ليالي العمر",
+    arabicMessage: "يسعدنا ويشرفنا حضوركم لمشاركتنا أجمل لحظات العمر وفرحتنا الكبيرة",
+    signature: "Mohamed & Menna",
   },
 
   // Venue & Reception Details
